@@ -1,12 +1,16 @@
 {
-  "name": "nginx_perfomance",
+  "name": "nginx_performance",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type":"module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.11.3"
+  }
 }
