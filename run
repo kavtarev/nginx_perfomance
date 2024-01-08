@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for ((i=0;i<200;i++))
+do
+  curl -s -w "\\n" -X POST http://localhost:3000 >> curl_result.txt & 
+done;
+
+wait

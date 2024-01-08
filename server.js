@@ -13,10 +13,37 @@ const client = new pg.Client({
 
 async function run() {
   await client.connect();
-  await client.query('create table if not exists test (id int)');
+  await client.query(`drop table test`)
 
-  createServer((req, res) => {
-    res.end('hello')
+  await client.query(
+    `
+      create table test (
+        id serial primary key
+        , count int
+      )
+    `
+  );
+  await client.query(`insert into test (count) values(0)`);
+
+
+  createServer(async (req, res) => {
+    try {
+      await client.query(
+        `
+          begin;
+          update test set count = count + 1;
+          commit;
+        `
+      )
+      res.end('res')
+
+    } catch (e) {
+      await client.query(`rollback;`)
+      console.log(e);
+      res.end('something went wrong')
+    } finally {
+      await client.end()
+    }
   }).listen(PORT, () => { console.log(`up on ${PORT}`) })
 
 }
