@@ -4,7 +4,7 @@ import pg from 'pg'
 const PORT = 3000
 
 const pool = new pg.Pool({
-  host: '127.0.0.1',
+  host: 'host.docker.internal',
   port: 5433,
   database: 'garbage',
   user: 'postgres',
